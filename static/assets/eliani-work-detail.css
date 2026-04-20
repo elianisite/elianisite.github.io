@@ -1,0 +1,1143 @@
+/* Shared: artist + work detail templates (eliani-work-page). Depends on styles.css for variables. */
+@font-face {
+  font-family: "BB Noname Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/BBNonamePro-Normal.woff2") format("woff2"),
+    url("fonts/BBNonamePro-Normal.woff") format("woff"),
+    url("fonts/BBNonamePro-Normal.otf") format("opentype");
+}
+
+.eliani-work-page {
+  background: var(--page-bg);
+}
+
+body.eliani-viewer-open {
+  overflow: hidden;
+}
+
+.eliani-work-shell {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3rem) clamp(4rem, 6vw, 5rem);
+}
+
+.eliani-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1.6rem 0 1.2rem;
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+}
+
+.eliani-work-status,
+.eliani-work-intro,
+.eliani-related-section {
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(38, 35, 32, 0.1);
+  border-radius: 28px;
+  backdrop-filter: blur(6px);
+}
+
+.eliani-work-status {
+  padding: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  margin-top: 30vh;
+  margin-bottom: 30vh;
+}
+
+.eliani-work-status-logo {
+  display: block;
+  width: 100px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 1.1rem;
+  margin-bottom: 0px;
+}
+
+.eliani-kicker {
+  margin: 0 0 0.9rem;
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+}
+
+.eliani-work-status h1,
+.eliani-work-hero-copy h1,
+.eliani-related-heading h2 {
+  margin: 0;
+  font-family: "Aboreto", serif;
+  font-size: clamp(2rem, 3vw, 4.2rem);
+  font-weight: 400;
+  line-height: 0.96;
+  text-transform: uppercase;
+}
+
+.eliani-work-status p,
+.eliani-work-intro p,
+.blog-body-frontend,
+.blog-media-caption {
+  margin: 0;
+  margin-bottom: 2rem;
+  margin-top: 1.2rem;
+  color: var(--muted-text);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.2rem, 2.4vw, 3.58rem);
+  line-height: 1.45;
+  text-align: center;
+}
+
+.eliani-work-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.eliani-work-hero {
+  position: relative;
+  min-height: 100vh;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.eliani-work-hero.eliani-work-hero--bgpos-sackitey {
+  background-position: 0% 25%;
+}
+
+.eliani-work-hero--no-media {
+  background-image: none;
+  min-height: 0;
+}
+
+.eliani-work-hero--no-media::before {
+  display: none;
+}
+
+.eliani-work-hero--no-media .eliani-work-hero-copy {
+  position: relative;
+  inset: auto;
+  color: var(--text-color);
+}
+
+.eliani-work-hero--no-media .eliani-work-hero-copy h1 {
+  color: var(--text-color);
+  text-shadow: none;
+}
+
+.eliani-work-hero--no-media .eliani-work-hero-copy .eliani-kicker,
+.eliani-work-hero--no-media .eliani-work-hero-copy .eliani-work-date {
+  color: var(--muted-text);
+}
+
+.eliani-work-hero--no-media .eliani-work-hero-meta {
+  color: var(--muted-text);
+}
+
+.eliani-work-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Autoplay blocked / low power / etc.: hide video so section background (poster) shows */
+.eliani-work-hero--static-poster .eliani-work-hero__video {
+  display: none !important;
+}
+
+.eliani-work-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to top, rgba(38, 35, 32, 0.42), rgba(38, 35, 32, 0.08) 35%, rgba(38, 35, 32, 0.18));
+}
+
+.eliani-work-hero-back {
+  position: absolute;
+  top: calc(var(--header-offset) + 1.6rem);
+  left: clamp(1rem, 4vw, 2.5rem);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: 0.5rem; */
+  margin: -0.5rem;
+  color: #fffdf8;
+  text-decoration: none;
+  opacity: 0.94;
+  transition: opacity 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  .eliani-work-hero-back {
+    top: 20px;
+    left: 34px;
+  }
+}
+
+.eliani-work-hero-back:hover,
+.eliani-work-hero-back:focus-visible {
+  opacity: 1;
+}
+
+.eliani-work-hero-back:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.eliani-work-hero--no-media .eliani-work-hero-back {
+  color: var(--text-color);
+}
+
+.eliani-work-hero-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--header-offset) + 2rem) 1.5rem 3rem;
+  color: #fffdf8;
+}
+
+.eliani-work-hero-inner {
+  width: min(100%, 860px);
+}
+
+.eliani-work-hero h1 {
+  color: inherit;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.24);
+}
+
+.eliani-work-hero-copy .eliani-kicker,
+.eliani-work-hero-copy .eliani-work-date {
+  color: rgba(255, 253, 248, 0.95);
+}
+
+.eliani-work-hero-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+/* @media (max-width: 640px) {
+  .overlay-title {
+    font-size: 20px;
+  }
+} */
+
+.eliani-work-intro {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.eliani-work-intro p {
+  max-width: 34ch;
+  margin: 0 auto;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.32;
+  color: var(--text-color);
+}
+
+.eliani-work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+  align-items: center;
+  margin: 1.2rem 0 1rem;
+}
+
+.eliani-work-date {
+  font-family: "Geist", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+}
+
+.eliani-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.eliani-tag {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(38, 35, 32, 0.18);
+  border-radius: 999px;
+  font-family: "Geist", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  background: rgba(245, 245, 245, 0.82);
+}
+
+.eliani-work-body {
+  display: grid;
+  gap: 1.4rem;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/*
+ * Reveal: do not animate opacity on the whole block — <video> becomes translucent and the
+ * poster shows through. Keep children at full opacity; fade a page-toned veil instead.
+ */
+.eliani-work-body.reveal-on-scroll {
+  position: relative;
+  opacity: 1;
+  transform: translate3d(0, 28px, 0);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.eliani-work-body.reveal-on-scroll::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(245, 245, 245, 0.92);
+  opacity: 1;
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.eliani-work-body.reveal-on-scroll.is-visible {
+  transform: translate3d(0, 0, 0);
+}
+
+.eliani-work-body.reveal-on-scroll.is-visible::after {
+  opacity: 0;
+}
+
+.eliani-related-logo-wrap {
+  max-width: 200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: clamp(2.75rem, 5vw, 4rem);
+  margin-bottom: 0px;
+  padding: 0;
+  text-align: center;
+}
+
+.eliani-related-logo-link {
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+  color: inherit;
+  border: 0;
+}
+
+.eliani-related-logo-link:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.eliani-related-logo {
+  display: inline-block;
+  width: min(100%, 400px);
+  height: auto;
+  vertical-align: middle;
+}
+
+.eliani-related-section {
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.blog-section-frontend,
+.blog-block-frontend {
+  display: grid;
+  gap: 1rem;
+  margin-bottom:60px;
+}
+
+.blog-subtitle-frontend {
+  font-family: "Baskervville", serif;
+  font-size: clamp(2.35rem, 4vw, 6rem);
+  line-height: 1.15;
+  color: var(--text-color);
+  border-bottom: 1px solid rgb(38, 35, 32);
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  text-transform: capitalize;
+  font-variant: normal;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.blog-subtitle-frontend p {
+  margin: 0;
+  text-transform: inherit;
+}
+
+.blog-body-frontend p {
+  margin: 0 0 1rem;
+}
+
+.blog-body-frontend p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-media-frontend,
+.blog-embed-frontend,
+.blog-column-group-frontend {
+  width: 100%;
+}
+
+.blog-gallery-grid {
+  --g-min: 1;
+  --g-mid: 2;
+  --g-max: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--g-max), minmax(0, 1fr));
+  gap: 0.95rem;
+}
+
+.blog-gallery-item {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.blog-gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(245, 245, 245, 0);
+  transition: background 0.25s ease;
+}
+
+.blog-gallery-trigger:hover::after,
+.blog-gallery-trigger:focus-visible::after,
+.blog-gallery-link:hover::after,
+.blog-gallery-link:focus-visible::after {
+  background: rgba(245, 245, 245, 0.2);
+}
+
+.blog-gallery-trigger,
+.blog-gallery-link {
+  cursor: pointer;
+}
+
+.blog-gallery-static {
+  cursor: default;
+}
+
+.blog-gallery-item-crop {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+.blog-gallery-item-crop--default {
+  aspect-ratio: 1 / 1.25;
+}
+
+.blog-gallery-item-crop--user {
+  aspect-ratio: var(--eliani-media-aspect);
+}
+
+.blog-gallery-item-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+  position: relative;
+  z-index: 0;
+  transition: transform 0.25s ease;
+}
+
+.blog-media-frontend .blog-gallery-item-media {
+  border-radius: 0;
+}
+
+.blog-gallery-trigger:hover .blog-gallery-item-media,
+.blog-gallery-trigger:focus-visible .blog-gallery-item-media,
+.blog-gallery-link:hover .blog-gallery-item-media,
+.blog-gallery-link:focus-visible .blog-gallery-item-media {
+  transform: scale(0.985);
+}
+
+.blog-gallery-caption {
+  margin: 0.6rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  flex-wrap: wrap;
+  text-align: left;
+  font-family: "BB Noname Pro", "Geist", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: rgba(38, 35, 32, 0.82);
+}
+
+/* Filled arrow (SVGRepo-style polygon), tinted to caption text */
+.blog-gallery-caption::after {
+  content: "";
+  display: block;
+  flex-shrink: 0;
+  width: 0.95em;
+  height: 0.95em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpolygon fill='%23262320' fill-opacity='0.82' points='315.1,48.6 196.9,48.6 354.5,206.1 0,206.1 0,284.9 354.5,284.9 196.9,442.4 315.1,442.4 512,245.5'/%3E%3C/svg%3E")
+    no-repeat 50% 50% / contain;
+}
+
+.blog-media-aspect-crop {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: var(--eliani-media-aspect);
+  background: rgba(38, 35, 32, 0.06);
+}
+
+.blog-media-crop-fill {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  max-height: none !important;
+  background: rgba(38, 35, 32, 0.06);
+}
+
+.blog-media-frontend img.blog-media-img:not(.blog-media-crop-fill),
+.blog-media-frontend video.blog-media-video:not(.blog-media-crop-fill) {
+  width: 100%;
+  display: block;
+  /* border-radius: 24px; */
+  background: rgba(38, 35, 32, 0.06);
+  object-fit: cover;
+  max-height: 84vh;
+}
+
+.blog-media-caption {
+  padding-top: 0.75rem;
+  text-align: center;
+  font-size: 1.02rem;
+}
+
+.embed-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden;
+  /* border-radius: 24px; */
+  background: rgba(38, 35, 32, 0.08);
+}
+
+.embed-container iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.blog-column-group-frontend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.blog-column-frontend {
+  min-width: min(100%, 280px);
+  display: grid;
+  gap: 1rem;
+}
+
+.eliani-related-section {
+  padding: clamp(1.8rem, 4vw, 3rem);
+  margin-top: 0;
+  max-width: 1120px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eliani-related-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.eliani-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.eliani-related-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.85rem;
+  align-items: stretch;
+}
+
+.eliani-related-card-media {
+  flex: 0 0 auto;
+}
+
+.eliani-related-card-media img {
+  width: 100%;
+  aspect-ratio: 1.08 / 1;
+  object-fit: cover;
+  display: block;
+  /* border-radius: 22px; */
+}
+
+.eliani-related-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1 1 auto;
+  min-height: 7.25rem;
+  justify-content: flex-start;
+}
+
+.eliani-related-card h3 {
+  margin: 0;
+  font-family: "Baskervville", serif;
+  font-size: clamp(1.12rem, 1.8vw, 1.65rem);
+  font-weight: 400;
+  line-height: 1.05;
+  text-align: center;
+
+}
+
+.eliani-related-card .eliani-kicker {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+}
+
+.eliani-related-card-excerpt {
+  margin: 0;
+  margin-top: 10px;
+  padding-top: 0.4rem;
+  width: 100%;
+  min-height: 2.75em;
+  color: var(--muted-text);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(0.78rem, 1.15vw, 0.92rem);
+  line-height: 1.35;
+  text-align: center;
+}
+
+.eliani-pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.6rem;
+}
+
+.eliani-pager-btn {
+  appearance: none;
+  border: 1px solid rgba(38, 35, 32, 0.22);
+  background: rgba(245, 245, 245, 0.82);
+  color: var(--text-color);
+  border-radius: 999px;
+  padding: 0.9rem 1.25rem;
+  font-family: "Geist", sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.eliani-pager-btn:hover,
+.eliani-pager-btn:focus-visible {
+  background: rgba(146, 170, 121, 0.28);
+  transform: translateY(-1px);
+}
+
+.eliani-pager-btn[hidden] {
+  display: none;
+}
+
+.eliani-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: rgba(14, 13, 11, 0.87);
+  backdrop-filter: blur(27px);
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.4s step-end;
+}
+
+.eliani-viewer.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s step-start;
+}
+
+.eliani-viewer-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: 1rem 1rem 1.2rem;
+}
+
+.eliani-viewer-close,
+.eliani-viewer-nav {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #fffdf8;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eliani-viewer:not(.is-open) .eliani-viewer-close {
+  opacity: 0;
+  transform: translate(18px, -22px);
+}
+
+.eliani-viewer.is-open .eliani-viewer-close {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition-delay: 0.05s;
+}
+
+.eliani-viewer-close:hover,
+.eliani-viewer-close:focus-visible {
+  background: rgba(245, 245, 245, 0.16);
+  border-color: rgba(255, 253, 248, 0.52);
+}
+
+.eliani-viewer.is-open .eliani-viewer-close:hover,
+.eliani-viewer.is-open .eliani-viewer-close:focus-visible {
+  transform: translate(0, -1px);
+}
+
+.eliani-viewer-nav:hover,
+.eliani-viewer-nav:focus-visible {
+  background: rgba(245, 245, 245, 0.16);
+  border-color: rgba(255, 253, 248, 0.52);
+}
+
+.eliani-viewer.is-open .eliani-viewer-nav--prev:hover,
+.eliani-viewer.is-open .eliani-viewer-nav--prev:focus-visible {
+  transform: translate3d(0, calc(-50% + 2px), 0);
+}
+
+.eliani-viewer.is-open .eliani-viewer-nav--next:hover,
+.eliani-viewer.is-open .eliani-viewer-nav--next:focus-visible {
+  transform: translate3d(0, calc(-50% + 2px), 0);
+}
+
+.eliani-viewer:not(.is-open) .eliani-viewer-nav--prev {
+  opacity: 0;
+  transform: translate3d(-32px, -50%, 0);
+}
+
+.eliani-viewer:not(.is-open) .eliani-viewer-nav--next {
+  opacity: 0;
+  transform: translate3d(32px, -50%, 0);
+}
+
+.eliani-viewer.is-open .eliani-viewer-nav--prev {
+  opacity: 0.9;
+  transform: translate3d(0, -50%, 0);
+  transition-delay: 0.1s;
+}
+
+.eliani-viewer.is-open .eliani-viewer-nav--next {
+  opacity: 0.9;
+  transform: translate3d(0, -50%, 0);
+  transition-delay: 0.15s;
+}
+
+.eliani-viewer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.eliani-viewer-stage {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.eliani-viewer-viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 4.75rem 1rem;
+}
+
+.eliani-viewer-media {
+  max-width: min(100%, 1180px);
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eliani-viewer-media img {
+  display: block;
+  width: auto;
+  height: calc(100vh - 11rem);
+  max-width: 50vw;
+  max-height: calc(100vh - 11rem);
+  object-fit: contain;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eliani-viewer:not(.is-open) .eliani-viewer-media img {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.eliani-viewer.is-open .eliani-viewer-media img {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.04s;
+}
+
+.eliani-viewer-media video.eliani-viewer-video {
+  display: block;
+  width: auto;
+  max-width: min(90vw, 1180px);
+  max-height: calc(100vh - 11rem);
+  object-fit: contain;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eliani-viewer:not(.is-open) .eliani-viewer-media video.eliani-viewer-video {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.eliani-viewer.is-open .eliani-viewer-media video.eliani-viewer-video {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.04s;
+}
+
+.eliani-viewer-nav {
+  position: absolute;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  z-index: 2;
+  width: 60px;
+  height: 42px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Geist", sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 0.9;
+}
+
+.eliani-viewer-nav--prev {
+  left: 1rem;
+}
+
+.eliani-viewer-nav--prev::before,
+.eliani-viewer-nav--next::before {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25em;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.55rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.eliani-viewer-nav--prev::before {
+  content: "←";
+}
+
+.eliani-viewer-nav--next {
+  right: 1rem;
+}
+
+.eliani-viewer-nav--next::before {
+  content: "→";
+}
+
+.eliani-viewer-footer {
+  display: grid;
+  gap: 0.75rem;
+  align-self: end;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eliani-viewer:not(.is-open) .eliani-viewer-footer {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.eliani-viewer.is-open .eliani-viewer-footer {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.12s;
+}
+
+.eliani-viewer-caption {
+  min-height: 1.4rem;
+  margin: 0;
+  text-align: center;
+  color: rgba(255, 253, 248, 0.92);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.2;
+}
+
+.eliani-viewer-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+  scrollbar-width: thin;
+}
+
+.eliani-viewer-thumb {
+  appearance: none;
+  padding: 0;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  flex: 0 0 auto;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.eliani-viewer-thumb.is-active {
+  border-color: rgba(255, 253, 248, 0.9);
+  opacity: 1;
+}
+
+.eliani-viewer-thumb:hover,
+.eliani-viewer-thumb:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.eliani-viewer-thumb img {
+  width: 54px;
+  height: 54px;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 980px) {
+  .blog-gallery-grid {
+    grid-template-columns: repeat(var(--g-mid), minmax(0, 1fr));
+  }
+
+  .eliani-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-column-group-frontend {
+    flex-direction: column;
+  }
+
+  .blog-column-frontend {
+    width: 100% !important;
+    flex-basis: 100% !important;
+  }
+
+  .eliani-viewer-viewport {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .eliani-work-shell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .eliani-work-status,
+  .eliani-work-intro,
+  .eliani-related-section {
+    border-radius: 22px;
+  }
+
+  .eliani-work-hero:not(.eliani-work-hero--no-media) {
+    min-height: 56vh;
+  }
+
+  .eliani-work-hero--no-media {
+    min-height: 0;
+  }
+
+  .eliani-work-hero-copy {
+    padding-top: calc(var(--header-offset) + 1.5rem);
+    padding-bottom: 2rem;
+  }
+
+  .blog-gallery-grid {
+    grid-template-columns: repeat(var(--g-min), minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+ 
+
+  .eliani-pager {
+    flex-direction: column;
+  }
+
+  .eliani-pager-btn {
+    width: 100%;
+  }
+
+  .eliani-viewer-inner {
+    padding: 0.75rem 0.75rem 1rem;
+  }
+
+  .eliani-viewer-close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 42px;
+    height: 42px;
+  }
+
+  .eliani-viewer-nav {
+    width: 50px;
+    height: 38px;
+  }
+
+  .eliani-viewer-nav--prev {
+    left: 0.4rem;
+  }
+
+  .eliani-viewer-nav--next {
+    right: 0.4rem;
+  }
+
+  .eliani-viewer-viewport {
+    padding: 3.5rem 2.8rem 0.5rem;
+  }
+
+  .eliani-viewer-media img {
+    width: auto;
+    height: calc(100vh - 12rem);
+    max-width: 80vw;
+    max-height: calc(100vh - 12rem);
+  }
+
+  .eliani-viewer-media video.eliani-viewer-video {
+    max-width: 80vw;
+    max-height: calc(100vh - 12rem);
+  }
+
+  .eliani-viewer-thumb img {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eliani-work-body.reveal-on-scroll::after {
+    opacity: 0;
+    transition: none;
+  }
+
+  .eliani-viewer,
+  .eliani-viewer.is-open {
+    transition-duration: 0.2s;
+  }
+
+  .eliani-viewer-close,
+  .eliani-viewer-nav,
+  .eliani-viewer-footer,
+  .eliani-viewer-media img,
+  .eliani-viewer-media video.eliani-viewer-video {
+    transition-duration: 0.2s !important;
+    transition-delay: 0s !important;
+  }
+}
